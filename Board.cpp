@@ -52,6 +52,17 @@ void Board::print() const {
     printBitboard(blackKing);
 }
 
+// Method to generate white pawn moves
+uint64_t Board::generateWhitePawnMoves() const {
+    uint64_t singlePush = (whitePawns << 8) & ~0xFF00000000000000; // Single square push
+    uint64_t doublePush = ((singlePush & 0x0000FF0000000000) << 8) & ~0xFF00000000000000; // Double square push from starting position
+    uint64_t leftCapture = (whitePawns << 7) & ~0x8080808080808080; // Capture to the left
+    uint64_t rightCapture = (whitePawns << 9) & ~0x0101010101010101; // Capture to the right
+
+    // Combine all possible moves into one bitboard
+    return singlePush | doublePush | leftCapture | rightCapture;
+}
+
 // Helper function to print a bitboard in 8x8 format
 void Board::printBitboard(uint64_t bitboard) const {
     std::bitset<64> bits(bitboard);

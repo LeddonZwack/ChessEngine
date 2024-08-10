@@ -28,6 +28,8 @@ public:
     void print() const; // Method to print the bitboards
 
 private:
+    uint64_t generateWhitePawnMoves() const;
+
     void printBitboard(uint64_t bitboard) const; // Helper function to print a bitboard
 };
 

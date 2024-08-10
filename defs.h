@@ -5,6 +5,24 @@
 #ifndef CHESSENGINE_DEFS_H
 #define CHESSENGINE_DEFS_H
 
+#include <cstdlib>
+
+#define DEBUG
+
+#ifndef DEBUG
+#define ASSERT(n)
+#else
+#define ASSERT(n) \
+if (!(n)) { \
+    printf("%s - Failed", #n); \
+    printf("On %s ", __DATE__); \
+    printf("At %s ", __TIME__); \
+    printf("In File %s ", __FILE__); \
+    printf("At Line %d\n", __LINE__); \
+    exit(1); \
+}
+#endif
+
 
 typedef unsigned long long U64;
 
@@ -67,20 +85,37 @@ typedef struct {
 
     S_UNDO history[MAXGAMEMOVES];
 
+    // Piece list
+    int pList[13][10];
+
 } S_BOARD;
 
 /* MACROS */
 #define FR2SQ(f,r) ( (21 + (f) ) + ( (r) * 10 ) )
+#define SQ64(sq120) Sq120ToSq64[sq120]
+#define POP(b) PopBit(b)
+#define CNT(b) CountBits(b)
+#define CLRBIT(bb,sq) ( (bb) &= ClearMask [(sq)] )
+#define SETBIT(bb,sq) ( (bb) |= SetMask[(sq)] )
 
 /* GLOBALS */
 
 // 12- <--> 64
 extern int Sq120ToSq64[BRD_SQ_NUM];
 extern int Sq64ToSq120[64];
+extern U64 SetMask[64];
+extern U64 ClearMask[64];
+
 
 /* FUNCTIONS */
+
+// init.c
 extern void AllInit();
 
+// bitboards.c
+extern void PrintBitBoard(U64 bb);
+extern int PopBit(U64 *bb);
+extern int CountBits(U64 b);
 
 
 #endif //CHESSENGINE_DEFS_H

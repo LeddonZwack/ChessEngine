@@ -2,9 +2,9 @@
 // Created by Leddon Zwack on 8/10/24.
 //
 
-#include <cstdio>
 #include "defs.h"
 
+#include <cstdio>
 
 const int BitTable[64] = {
         63, 30, 3, 32, 25, 41, 22, 33,

@@ -6,6 +6,8 @@
 #define CHESSENGINE_DEFS_H
 
 #include <cstdlib>
+#include <iostream>
+
 
 #define DEBUG
 
@@ -13,13 +15,13 @@
 #define ASSERT(n)
 #else
 #define ASSERT(n) \
-if (!(n)) { \
-    printf("%s - Failed", #n); \
-    printf("On %s ", __DATE__); \
-    printf("At %s ", __TIME__); \
-    printf("In File %s ", __FILE__); \
-    printf("At Line %d\n", __LINE__); \
-    exit(1); \
+if (!(n)) {       \
+    std::cerr << #n << " - Failed"; \
+    std::cerr << " On " << __DATE__; \
+    std::cerr << " At " << __TIME__; \
+    std::cerr << " In File " << __FILE__; \
+    std::cerr << " At Line " << __LINE__ << std::endl; \
+    std::exit(1); \
 }
 #endif
 
@@ -31,7 +33,7 @@ typedef unsigned long long U64;
 
 #define MAXGAMEMOVES 2048
 
-enum { EMPTY, WP, WN, WB, WR, WQ, WK, bP, bN, bB, bR, bQ, bK };
+enum { EMPTY, wP, wN, wB, wR, wQ, wK, bP, bN, bB, bR, bQ, bK };
 enum { FILE_A, FILE_B, FILE_C, FILE_D, FILE_E, FILE_F, FILE_G, FILE_H, FILE_NONE };
 enum { RANK_1, RANK_2, RANK_3, RANK_4, RANK_5, RANK_6, RANK_7, RANK_8, RANK_NONE };
 enum { WHITE, BLACK, BOTH };
@@ -76,7 +78,7 @@ typedef struct {
 
     int castlePerm;
 
-    U64 posKey; // Unique key for each position
+    U64 posKey; // Unique key for the current position on the board
 
     int pceNum[13]; // Piece types (13 total)
     int bigPce[3]; // All not pawns
@@ -103,8 +105,13 @@ typedef struct {
 // 12- <--> 64
 extern int Sq120ToSq64[BRD_SQ_NUM];
 extern int Sq64ToSq120[64];
+
 extern U64 SetMask[64];
 extern U64 ClearMask[64];
+
+extern U64 PieceKeys[13][120];
+extern U64 SideKey;
+extern U64 CastleKeys[16];
 
 
 /* FUNCTIONS */
@@ -116,6 +123,9 @@ extern void AllInit();
 extern void PrintBitBoard(U64 bb);
 extern int PopBit(U64 *bb);
 extern int CountBits(U64 b);
+
+// hashkeys.c
+extern U64 GeneratePosKey(const S_BOARD *pos);
 
 
 #endif //CHESSENGINE_DEFS_H

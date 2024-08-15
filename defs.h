@@ -83,9 +83,11 @@ typedef struct {
     U64 posKey; // Unique key for the current position on the board
 
     int pceNum[13]; // Piece types (13 total)
-    int bigPce[3]; // All not pawns
-    int majPce[3]; // Major pieces
-    int minPce[3]; // Minor pieces
+    int bigPce[2]; // All not pawns
+    int majPce[2]; // Major pieces
+    int minPce[2]; // Minor pieces
+    int material[2]; // Material scores
+
 
     S_UNDO history[MAXGAMEMOVES];
 
@@ -116,6 +118,17 @@ extern U64 PieceKeys[13][120];
 extern U64 SideKey;
 extern U64 CastleKeys[16];
 
+extern char PceChar[];
+extern char SideChar[];
+extern char RankChar[];
+extern char FileChar[];
+
+extern int PieceBig [13];
+extern int PieceMaj[13];
+extern int PieceMin[13];
+extern int PieceVal[13];
+extern int PieceCol[13];
+
 
 /* FUNCTIONS */
 
@@ -131,7 +144,10 @@ extern int CountBits(U64 b);
 extern U64 GeneratePosKey(const S_BOARD *pos);
 
 // boards.c
+extern void UpdateListMaterial(S_BOARD *pos);
 extern void ResetBoard(S_BOARD *pos);
+extern int ParseFen(char *fen, S_BOARD *pos);
+extern void PrintBoard(const S_BOARD *pos);
 
 
 #endif //CHESSENGINE_DEFS_H

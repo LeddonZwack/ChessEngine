@@ -4,8 +4,34 @@
 
 #include "defs.h"
 
+void UpdateListMaterial(S_BOARD *pos) {
+
+    int piece, sq, index, color;
+
+    for (index = 0; index < BRD_SQ_NUM; ++index) {
+        sq = index;
+        piece = pos->pieces[index];
+        if (piece != OFFBOARD && piece != EMPTY) {
+            color = PieceCol[piece];
+
+            if (PieceBig[piece] == TRUE) pos->bigPce[color]++;
+            if (PieceMin[piece] == TRUE) pos->minPce[color]++;
+            if (PieceMaj[piece] == TRUE) pos->majPce[color]++;
+
+            pos->material[color] += PieceVal[piece];
+
+            pos->pList[piece][pos->pceNum[piece]] = sq;
+            pos->pceNum[piece]++;
+
+            if (piece == wK) pos->KingSq[WHITE] = sq;
+            if (piece == bK) pos->KingSq[BLACK] = sq;
+        }
+    }
+}
+
+
 // Parsing FEN input
-int Parse_Fen(char *fen, S_BOARD *pos) {
+int ParseFen(char *fen, S_BOARD *pos) {
 
     ASSERT(fen != NULL);
     ASSERT(pos != NULL);
@@ -165,4 +191,37 @@ void ResetBoard(S_BOARD *pos) {
     pos->castlePerm = 0;
 
     pos->posKey = 0ULL;
+}
+
+void PrintBoard(const S_BOARD *pos) {
+
+    int sq, file, rank, piece;
+
+    printf("\nGame Board:\n\n");
+
+    for(rank = RANK_8; rank >= RANK_1; rank--) {
+        printf("%d  ", rank + 1);
+        for(file = FILE_A; file <= FILE_H; file++) {
+            sq = FR2SQ(file, rank);
+            piece = pos->pieces[sq];
+            printf("%3c", PceChar[piece]);
+        }
+        printf("\n");
+    }
+
+    printf("\n  ");
+    for(file = FILE_A; file <= FILE_H; file++) {
+        printf("%3c", 'a' + file);
+    }
+
+    printf("\n");
+    printf("side:%c\n", SideChar[pos->side]);
+    printf("enPas:%d\n", pos->enPas);
+    printf("castle:%c%c%c%c\n",
+           pos->castlePerm & WKCA ? 'K' : '-',
+           pos->castlePerm & WQCA ? 'Q' : '-',
+           pos->castlePerm & BKCA ? 'k' : '-',
+           pos->castlePerm & BQCA ? 'q' : '-'
+    );
+    printf("PosKey:%llX\n", pos->posKey);
 }

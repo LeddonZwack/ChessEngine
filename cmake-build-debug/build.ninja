@@ -97,6 +97,14 @@ build CMakeFiles/ChessEngine.dir/data.cpp.o: CXX_COMPILER__ChessEngine_unscanned
   OBJECT_DIR = CMakeFiles/ChessEngine.dir
   OBJECT_FILE_DIR = CMakeFiles/ChessEngine.dir
 
+build CMakeFiles/ChessEngine.dir/attacks.cpp.o: CXX_COMPILER__ChessEngine_unscanned_Debug /Users/leddonzwack/Desktop/Projects/ChessEngine/attacks.cpp || cmake_object_order_depends_target_ChessEngine
+  DEFINES = -DBOOST_ATOMIC_DYN_LINK -DBOOST_ATOMIC_NO_LIB -DBOOST_FILESYSTEM_DYN_LINK -DBOOST_FILESYSTEM_NO_LIB -DBOOST_SYSTEM_DYN_LINK -DBOOST_SYSTEM_NO_LIB -DBOOST_THREAD_DYN_LINK -DBOOST_THREAD_NO_LIB
+  DEP_FILE = CMakeFiles/ChessEngine.dir/attacks.cpp.o.d
+  FLAGS = -g -std=gnu++17 -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -mmacosx-version-min=13.6 -fcolor-diagnostics
+  INCLUDES = -isystem /opt/homebrew/include
+  OBJECT_DIR = CMakeFiles/ChessEngine.dir
+  OBJECT_FILE_DIR = CMakeFiles/ChessEngine.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target ChessEngine
@@ -105,7 +113,7 @@ build CMakeFiles/ChessEngine.dir/data.cpp.o: CXX_COMPILER__ChessEngine_unscanned
 #############################################
 # Link the executable ChessEngine
 
-build ChessEngine: CXX_EXECUTABLE_LINKER__ChessEngine_Debug CMakeFiles/ChessEngine.dir/main.cpp.o CMakeFiles/ChessEngine.dir/init.cpp.o CMakeFiles/ChessEngine.dir/bitboards.cpp.o CMakeFiles/ChessEngine.dir/hashkeys.cpp.o CMakeFiles/ChessEngine.dir/board.cpp.o CMakeFiles/ChessEngine.dir/data.cpp.o | /opt/homebrew/lib/libboost_system-mt.dylib /opt/homebrew/lib/libboost_filesystem-mt.dylib /opt/homebrew/lib/libboost_thread-mt.dylib /opt/homebrew/lib/libboost_atomic-mt.dylib
+build ChessEngine: CXX_EXECUTABLE_LINKER__ChessEngine_Debug CMakeFiles/ChessEngine.dir/main.cpp.o CMakeFiles/ChessEngine.dir/init.cpp.o CMakeFiles/ChessEngine.dir/bitboards.cpp.o CMakeFiles/ChessEngine.dir/hashkeys.cpp.o CMakeFiles/ChessEngine.dir/board.cpp.o CMakeFiles/ChessEngine.dir/data.cpp.o CMakeFiles/ChessEngine.dir/attacks.cpp.o | /opt/homebrew/lib/libboost_system-mt.dylib /opt/homebrew/lib/libboost_filesystem-mt.dylib /opt/homebrew/lib/libboost_thread-mt.dylib /opt/homebrew/lib/libboost_atomic-mt.dylib
   FLAGS = -g -arch arm64 -isysroot /Library/Developer/CommandLineTools/SDKs/MacOSX14.0.sdk -mmacosx-version-min=13.6
   LINK_LIBRARIES = -Wl,-rpath,/opt/homebrew/Cellar/cpprestsdk/2.10.19/lib  /opt/homebrew/lib/libboost_system-mt.dylib  /opt/homebrew/lib/libboost_filesystem-mt.dylib  /opt/homebrew/lib/libboost_thread-mt.dylib  -lcpprest  /opt/homebrew/lib/libboost_atomic-mt.dylib
   LINK_PATH = -L/opt/homebrew/Cellar/cpprestsdk/2.10.19/lib

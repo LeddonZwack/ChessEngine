@@ -12,6 +12,7 @@ add_executable(ChessEngine main.cpp
         bitboards.cpp
         hashkeys.cpp
         board.cpp
-        data.cpp)
+        data.cpp
+        attacks.cpp)
 
 target_link_libraries(ChessEngine PRIVATE Boost::system Boost::filesystem Boost::thread cpprest)

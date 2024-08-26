@@ -54,6 +54,11 @@ enum { FALSE, TRUE };
 
 enum { WKCA = 1, WQCA = 2, BKCA = 4, BQCA = 8 };
 
+typedef struct {
+    int move;
+    int score;
+} S_MOVE;
+
 // Current board status and move made
 typedef struct {
     int move;
@@ -96,10 +101,13 @@ typedef struct {
 
 } S_BOARD;
 
+/* */
+
 /* MACROS */
 #define FR2SQ(f,r) ( (21 + (f) ) + ( (r) * 10 ) )
 #define SQ64(sq120) (Sq120ToSq64[(sq120)])
 #define SQ120(sq64) (Sq64ToSq120[(sq64)])
+
 #define POP(b) PopBit(b)
 #define CNT(b) CountBits(b)
 #define CLRBIT(bb,sq) ( (bb) &= ClearMask [(sq)] )
